@@ -2,16 +2,15 @@
 var Points = require('./points.js');
 
 
-  var PlayScene = {
+var p = new Points([20,20]);
 
-    main: function()
-    {
-      var p = new Points([20,20], this.game),
-    },
+  var PlayScene = {
 
   create: function () {
     this.game.stage.backgroundColor = "#452036";
+    p.game = this.game;
     p.createText();
+    p.resetPoints();
   },
 
   update: function(){

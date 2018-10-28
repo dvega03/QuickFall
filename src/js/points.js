@@ -1,12 +1,12 @@
 'use strict';
-function Points(position,game)
+function Points(position)
 {
-    this.game = game; 
-    this.score;
-    this.scoreText;
+    this.game = null; 
+    this.score = null;
+    this.scoreText= null;
     this._position = position;
     //this._graphic = graphic;
-    this.color;
+    this.color = null;
 
 }
 
