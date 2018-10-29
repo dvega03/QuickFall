@@ -1,63 +1,40 @@
 'use strict';
-  var ball;
-  var fall;
-  var bounce;
-  var cursors
+var Player = require ('./player.js');
 
-  var PlayScene = {
+var player = new Player ('ball');
+
+ var PlayScene = {
   create: function () {
-      //Creating animation of player
-      this.game.stage.backgroundColor = "#263547";
-      ball = this.game.add.sprite(this.game.world.centerX,
-        this.game.world.centerY,'ball');
-      ball.scale.set(0.1);
-      ball.anchor.setTo(0.5,0.5);
-      fall = ball.animations.add('fall',[0]);
-      bounce = ball.animations.add('bounce',[0]);
+    //Creating animation of player
+    this.game.stage.backgroundColor = "#263547";
+    //Setting Player properties
+    player.game = this.game;
+    player.posX = this.game.world.centerX;
+    player.posY = this.game.world.centerY; 
+    player.cursors = this.game.input.keyboard.createCursorKeys();
+
+    player.getSprite(); //Creates player sprite
+    player.getPhysics(); //Allows the sprite to use Phaser's physics
+
+
+    //fall = ball.animations.add('fall',[0]);
+    //bounce = ball.animations.add('bounce',[0]);
+  },
     
-      //Enable Phaser physics
-      this.game.physics.startSystem(Phaser.Physics.ARCADE);
-      this.game.physics.enable(ball, Phaser.Physics.ARCADE);
-      ball.body.collideWorldBounds = true;
-    
-      //Set controls by keybord
-      cursors = this.game.input.keyboard.createCursorKeys();
-    
-      //Bounce&Gravity
-      ball.body.bounce.set(1);
-      ball.body.gravity.set(0,1600);
-    },
-    
- update:function(){
+  update:function(){
 
-  //this.ballAnimation();
+    //Setting player movement
+    player.controls();
 
-  //Setting player movement
-  ball.body.velocity.x = 0;
+  /*ballAnimation:function(){
+    if(ball.body.velocity.y > 0){
+    fall.play(8);
+    }
 
-  if (cursors.left.isDown){
-      ball.body.velocity.x = -300;
+    if(ball.body.velocity.y < 0){
+    bounce.play(8);
+    }*/
   }
-
-  if (cursors.right.isDown){
-      ball.body.velocity.x = +300;
-  }
-
-  if (cursors.up.isDown){
-      ball.body.velocity.y = -500;
-  }
-
-},
-
-ballAnimation:function(){
-  if(ball.body.velocity.y > 0){
-  fall.play(8);
-  }
-
-  if(ball.body.velocity.y < 0){
-  bounce.play(8);
-  }
-}
 };
 
 module.exports = PlayScene;
