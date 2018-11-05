@@ -22,9 +22,10 @@ var plat = new Platform([400,300]);
     p.createText();
     p.resetPoints();
 
-    for(var i = 0; i < 6;i++ )
+    for(var i = 0; i < 6; i++ )
     {
       this.game.add.sprite(plat.spikePoints[i].x, plat.spikePoints[i].y, 'spikePoints');
+      console.log(plat.spikePoints[i].x + '||' + plat.spikePoints[i].y);
     }
 
   },

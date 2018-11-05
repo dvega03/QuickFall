@@ -1,4 +1,5 @@
 'use strict';
+
 function Platform(position)
 {
     this.game = null;
@@ -8,8 +9,7 @@ function Platform(position)
     this.position.y = position[1];
     this.spriteHeigth = null;
     this.spriteWidth = null;
-    var point = {x: 0, y: 0};
-    this.spikePoints = new Array(6).fill(point);;
+    this.spikePoints = new Array(6).fill(null);
 
     this.color;
 
@@ -27,12 +27,12 @@ Platform.prototype.createPlatform = function()
     this.graphic.anchor.x = 0.5;
     this.graphic.anchor.y = 0.5;
 
+    this.graphic.scale.setTo(0.5,0.5);
+
     this.getH();
     console.log(this.spriteHeigth);
     this.getW();
     console.log(this.spriteWidth);
-
-    this.graphic.scale.setTo(0.5,0.5);
 
     this.game.physics.arcade.enable(this.graphic);
 
@@ -43,10 +43,18 @@ Platform.prototype.createPlatform = function()
 
 Platform.prototype.setSpikePoints = function()
 {
-    for(var i = 0; i < 4; i++) // First 4 points
+
+    for(var i = 0; i < 6;i++)
     {
-        this.spikePoints[i].x = this.position.x - this.spriteWidth + this.spriteWidth/5 * (i + 1);
-        this.spikePoints[i].y = this.position.y + this.spriteHeigth/2;
+        this.spikePoints[i] = {x:0,y:0};
+    }
+
+
+
+    for(i = 0; i < 4; i++) // First 4 points
+    {
+        this.spikePoints[i].x = this.position.x - this.spriteWidth/2 + this.spriteWidth/5 * (i + 1);
+        this.spikePoints[i].y = this.position.y - this.spriteHeigth/2;
     }
 
     //p5 & p6
@@ -56,13 +64,11 @@ Platform.prototype.setSpikePoints = function()
 
     this.spikePoints[5].x = this.position.x + this.spriteWidth/2;
     this.spikePoints[5].y = this.position.y;
-
-
 }
 
 Platform.prototype.getW = function() { this.spriteWidth = this.graphic.width; }
 
-Platform.prototype.getH = function() { this.spriteHeigth = this.graphic.heigth; }
+Platform.prototype.getH = function() { this.spriteHeigth = this.graphic.height; }
 
 Platform.prototype.destroyPlatform  = function()
 {
