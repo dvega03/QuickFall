@@ -24,7 +24,8 @@ var plat = new Platform([400,300]);
 
     for(var i = 0; i < 6; i++ )
     {
-      this.game.add.sprite(plat.spikePoints[i].x, plat.spikePoints[i].y, 'spikePoints');
+      var spike =  this.game.add.sprite(plat.spikePoints[i].x, plat.spikePoints[i].y, 'spikePoints');
+      spike.anchor.setTo(0.5,0.5);
       console.log(plat.spikePoints[i].x + '||' + plat.spikePoints[i].y);
     }
 

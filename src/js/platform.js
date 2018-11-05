@@ -34,6 +34,7 @@ Platform.prototype.createPlatform = function()
     this.getW();
     console.log(this.spriteWidth);
 
+
     this.game.physics.arcade.enable(this.graphic);
 
     this.setSpikePoints();
@@ -53,8 +54,8 @@ Platform.prototype.setSpikePoints = function()
 
     for(i = 0; i < 4; i++) // First 4 points
     {
-        this.spikePoints[i].x = this.position.x - this.spriteWidth/2 + this.spriteWidth/5 * (i + 1);
-        this.spikePoints[i].y = this.position.y - this.spriteHeigth/2;
+        this.spikePoints[i].x = this.graphic.x - this.spriteWidth/2 + this.spriteWidth/5 * (i + 1);
+        this.spikePoints[i].y = this.graphic.y - this.spriteHeigth/2;
     }
 
     //p5 & p6

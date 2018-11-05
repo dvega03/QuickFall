@@ -18,7 +18,6 @@ var MenuScene = {
      },
   
      actionOnClick: function(){
-      console.log("Por fin Coño de la madre");
       this.game.state.start('play');
      }
   };
