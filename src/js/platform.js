@@ -1,46 +1,22 @@
 'use strict';
 
-function Platform(position)
+function Platform(position, game)
 {
-    this.game = null;
-    this.graphic = null;
-    this.position = position;
-    this.position.x = position[0];
-    this.position.y = position[1];
-    this.spriteHeigth = null;
-    this.spriteWidth = null;
+    var game = game;
+    var x = position[0];
+    var y = position[1];
     this.spikePoints = new Array(6).fill(null);
 
     this.color;
 
+    Phaser.Sprite.call(this, game, x, y, 'platform');
+
+    this.anchor.setTo(0.5,0.5);
+    this.scale.setTo(0.3, 0.3);
 }
 
-
-Platform.prototype.createPlatform = function()
-{
-    
-    this.graphic = this.game.add.sprite(this.position.x,  this.position.y,'platform');
-   
-    //this.game.physics.arcade.gravity.y = 100;
-    //this.graphic.body.collideWorldBounds = true;
-
-    this.graphic.anchor.x = 0.5;
-    this.graphic.anchor.y = 0.5;
-
-    this.graphic.scale.setTo(0.5,0.5);
-
-    this.getH();
-    console.log(this.spriteHeigth);
-    this.getW();
-    console.log(this.spriteWidth);
-
-
-    this.game.physics.arcade.enable(this.graphic);
-
-    this.setSpikePoints();
-
-}
-
+Platform.prototype = Object.create(Phaser.Sprite.prototype);
+Platform.constructor = Platform;
 
 Platform.prototype.setSpikePoints = function()
 {
@@ -54,26 +30,25 @@ Platform.prototype.setSpikePoints = function()
 
     for(i = 0; i < 4; i++) // First 4 points
     {
-        this.spikePoints[i].x = this.graphic.x - this.spriteWidth/2 + this.spriteWidth/5 * (i + 1);
-        this.spikePoints[i].y = this.graphic.y - this.spriteHeigth/2;
+        this.spikePoints[i].x = this.x - this.width /2 + this.width /5 * (i + 1);
+        this.spikePoints[i].y = this.y - this.height /2;
     }
 
     //p5 & p6
 
-    this.spikePoints[4].x = this.position.x - this.spriteWidth/2;
-    this.spikePoints[4].y = this.position.y;
+    this.spikePoints[4].x = this.x - this.width /2;
+    this.spikePoints[4].y = this.y;
 
-    this.spikePoints[5].x = this.position.x + this.spriteWidth/2;
-    this.spikePoints[5].y = this.position.y;
+    this.spikePoints[5].x = this.x + this.width /2;
+    this.spikePoints[5].y = this.y;
 }
 
-Platform.prototype.getW = function() { this.spriteWidth = this.graphic.width; }
-
-Platform.prototype.getH = function() { this.spriteHeigth = this.graphic.height; }
-
-Platform.prototype.destroyPlatform  = function()
-{
-
+Platform.prototype.update  = function() //update
+{ 
+    
 }
+
+
+
 
 module.exports = Platform;
