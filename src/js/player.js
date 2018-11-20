@@ -1,4 +1,5 @@
 'use strict';
+
 function Player(avatar){
     this.avatar = avatar;
     this.posX = 0;
@@ -8,6 +9,11 @@ function Player(avatar){
     this.cursors = null;
 }
 
+
+Player.prototype = Object.create(Phaser.Sprite.prototype);
+Player.prototype.constructor = Player;
+
+
 Player.prototype.getSprite = function(){
     this.sprite = this.game.add.sprite(this.posX,this.posY,this.avatar);
     this.sprite.scale.setTo(0.1);
@@ -15,11 +21,13 @@ Player.prototype.getSprite = function(){
 }
 
 Player.prototype.getPhysics = function(){
+
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
     this.game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
     this.sprite.body.collideWorldBounds = true;
     this.sprite.body.bounce.set(1.0);
     this.sprite.body.gravity.set(0,1600);
+    this.sprite.body.setSize(500,500,250,250);
 }
 
 Player.prototype.controls = function(){
@@ -29,5 +37,6 @@ Player.prototype.controls = function(){
     if (this.cursors.right.isDown){ 
         this.sprite.body.velocity.x = +300; }
 }
+
 
 module.exports = Player;
