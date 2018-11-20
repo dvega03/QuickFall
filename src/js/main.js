@@ -1,13 +1,10 @@
 'use strict';
 
 var PlayScene = require('./play_scene.js');
-var MenuScene = require ('./menu_scene');
-
+var MenuScene = require('./menu_scene.js');
 
 var BootScene = {
   preload: function () {
-    // load here assets required for the loading screen
-    this.game.load.image('ball', 'Assets/Sprites/Ball_Spritesheet.png');
   },
 
   create: function () {
