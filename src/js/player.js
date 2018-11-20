@@ -38,5 +38,9 @@ Player.prototype.controls = function(){
         this.sprite.body.velocity.x = +300; }
 }
 
+Player.prototype.getAnimations = function(){
+    this.anim = this.sprite.animations.add('anim',[0,6,8,6,0],24,false);
+}
+
 
 module.exports = Player;

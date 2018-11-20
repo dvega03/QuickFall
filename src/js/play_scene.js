@@ -7,7 +7,6 @@ var player = new Player('ball');
 
  var PlayScene = {
   create: function () {
-    //Creating animation of player
     this.game.stage.backgroundColor = "#263547";
     //Points
     p.game = this.game;
@@ -21,6 +20,7 @@ var player = new Player('ball');
   
     player.getSprite(); //Creates player sprite
     player.getPhysics(); //Allows the sprite to use Phaser's physics
+    player.getAnimations();
   },
     
   update:function(){
@@ -34,8 +34,7 @@ var player = new Player('ball');
   render:function(){
 
     this.game.debug.body(player.sprite);
-    this.game.debug.body(plane);
   }
-};
+}
 
 module.exports = PlayScene;
