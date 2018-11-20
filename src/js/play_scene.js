@@ -1,6 +1,8 @@
 'use strict';
 var Points = require('./points.js');
 var Player = require ('./player.js');
+var Platform = require('./platform.js');
+
 
 var p = new Points([20,20]);
 var player = new Player('ball');
@@ -21,6 +23,19 @@ var player = new Player('ball');
     player.getSprite(); //Creates player sprite
     player.getPhysics(); //Allows the sprite to use Phaser's physics
     player.getAnimations();
+    
+    this.game.physics.startSystem(Phaser.Physics.ARCADE);
+
+    var plat = new Platform([400,300], this.game);
+    this.game.world.addChild(plat);
+
+
+
+
+    p.game = this.game;
+    p.createText();
+    p.resetPoints();
+
   },
     
   update:function(){

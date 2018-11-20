@@ -5,6 +5,10 @@ var MenuScene = require('./menu_scene.js');
 
 var BootScene = {
   preload: function () {
+    // load here assets required for the loading screen
+    this.game.load.image('ball', 'Assets/Sprites/Ball_Spritesheet.png');
+    this.game.load.image('platform', 'Assets/Sprites/Platform.png');
+    this.game.load.image('spikePoints', 'Assets/Sprites/SpikePoints.png');
   },
 
   create: function () {
