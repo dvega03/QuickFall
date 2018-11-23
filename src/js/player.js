@@ -44,14 +44,15 @@ Player.prototype.controls = function(){
 }
 
 Player.prototype.particles = function(){
-    this.part = this.game.add.sprite(this.sprite.body.posX,this.sprite.body.posY,this.partName);
+    this.part = this.game.add.sprite(this.posX,this.posY,this.partName,30);
     this.part.anchor.setTo(0.5,0.5);
-    this.anim = this.part.animations.add('bounce',[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16]);
-    this.anim.play(30,false);
+    //this.anim = this.part.animations.add('bounce',[28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57]); //[28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57]
+    //this.anim.play(30,false);
 }
 
 Player.prototype.collision = function(sprite){
-    sprite.body.velocity.y = -750;
+    if(sprite.body.touching.down||sprite.body.blocked.down){sprite.body.velocity.y = -800;}
+    
     //this.particles;
 }
 

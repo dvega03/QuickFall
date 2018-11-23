@@ -41,7 +41,7 @@ var plat;
     player.controls();
     p.update();
     p.updateText();
-    this.game.physics.arcade.collide(player.sprite,plat);
+    this.game.physics.arcade.collide(player.sprite,plat,player.collision);
   },
 
   render:function(){
