@@ -1,4 +1,4 @@
-'use strict';
+    'use strict';
 
 function Platform(position, game)
 {
@@ -17,6 +17,7 @@ function Platform(position, game)
     
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.physics.enable(this, Phaser.Physics.ARCADE);
+    this.body.immovable = true;
 
 
 }

@@ -3,6 +3,7 @@
 var MenuScene = {
     preload: function () {
       this.game.load.spritesheet('ball', 'Assets/Sprites/Ball_Spritesheet.png',1000,1000);
+      this.game.load.spritesheet('ballSmoke', 'Assets/Sprites/Ball_Smoke.png',800,800);
       this.game.load.spritesheet('frame', 'Assets/Sprites/Frame.png',1000,1000);
     },
   
