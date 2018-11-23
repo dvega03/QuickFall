@@ -2,6 +2,7 @@
 var Points = require('./points.js');
 var Player = require ('./player.js');
 var Platform = require('./platform.js');
+var RandomGenerator = require('./randomgenerator.js');
 
 
 var p = new Points([20,20]);
@@ -29,7 +30,7 @@ var player = new Player('ball');
     var plat = new Platform([400,300], this.game);
     this.game.world.addChild(plat);
 
-
+    var random = new RandomGenerator('platform', this.game, 3 ,player);
 
 
     p.game = this.game;

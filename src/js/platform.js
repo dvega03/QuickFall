@@ -14,11 +14,6 @@ function Platform(position, game)
     this.anchor.setTo(0.5,0.5);
     this.scale.setTo(0.3, 0.3);
 
-    
-    game.physics.startSystem(Phaser.Physics.ARCADE);
-    game.physics.enable(this, Phaser.Physics.ARCADE);
-
-
 }
 
 Platform.prototype = Object.create(Phaser.Sprite.prototype);
@@ -51,7 +46,7 @@ Platform.prototype.setSpikePoints = function()
 
 Platform.prototype.update  = function() //update
 { 
-    
+    this.y--;
 }
 
 
