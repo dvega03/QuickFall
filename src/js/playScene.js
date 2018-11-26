@@ -1,6 +1,6 @@
 'use strict';
 var Points = require('./points.js');
-var Player = require ('./player.js');
+var Player = require ('./ball.js');
 var Platform = require('./platform.js');
 
 
