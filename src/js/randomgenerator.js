@@ -2,19 +2,20 @@
 var Platform = require('./platform.js');
 var Spike = require('./spike.js');
 
-function RandomGenerator(platformID,game, columns, player)
+
+function RandomGenerator (game, columns, width, heigth)
 {
-    this._platformID = platform;
+
     this._game = game;
 
     this._columns = columns;
-    this.spawnPoints = []
+    this.spawnPoints = [];
 
     this.lastPlatform = null;
 
     for(var i = 1; i <= 3; i++)
     {
-        spawnPoints[i - 1] = {x:game.world.width/columns*i, y: game.world.height + 100};
+        this.spawnPoints[i - 1] = {x: width/columns*i, y: heigth + 100};
     }
 
     var destroyPoint;//A que altura se destruyen las plataformas
@@ -23,22 +24,25 @@ function RandomGenerator(platformID,game, columns, player)
 
     var boolSpawn = false;
 
-    this.platforms = _game.add.group();
+    this.platforms = game.add.group();
+
+    return this;
+
 }
 
 RandomGenerator.prototype.spawnPlatform  = function()
 {
-    for(var i = 0; i < this._game.rnd.integerInRange(0,3); i++)//# of platforms
+    for(var i = 0; i < _game.rnd.integerInRange(0,3); i++)//# of platforms
     {
-        var rnd = this._game.rnd.integerInRange(1,3);
-        var newPlatform = new Platform([this.spawnPoints[rnd].x, this.spawnPoints[rnd].y],this._game);
+        var rnd = _game.rnd.integerInRange(1,3);
+        var newPlatform = new Platform([this.spawnPoints[rnd].x, this.spawnPoints[rnd].y],_game);
         this.platforms.add(newPlatform);
 
         rnd = this._game.rnd.integerInRange(0,4);
 
         for(var j = 0; j < rnd; j++)
         {
-            var newSpike = new Spike([newPlatform.spikePoints[rnd].x, newPlatform.spikePoints[rnd].y], this._game, player);
+            var newSpike = new Spike([newPlatform.spikePoints[rnd].x, newPlatform.spikePoints[rnd].y], _game);
             newPlatform.addChild(newSpike);
         }
 
@@ -56,14 +60,13 @@ RandomGenerator.prototype.checkSpawn = function()
 
 RandomGenerator.prototype.update = function()
 {
-    this.checkSpawn();
-    if(boolSpawn)
-    {
-        this.spawnPlatform();
-    }
+    
+    this.spawnPlatform();
 }
 
 RandomGenerator.prototype.destroyPlatform = function()
 {
 
 }
+
+module.exports = RandomGenerator;

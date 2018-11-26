@@ -1,11 +1,11 @@
 'use strict'
 
-function Spike(posiiton, game, playerSprite)
+function Spike(positon, game)
 {
     var game = game;
-    var x = posiiton[0];
-    var y = posiiton[1];
-    var _playerSprite;
+    var x = positon[0];
+    var y = positon[1];
+    
 
 
     this.color;
@@ -14,8 +14,8 @@ function Spike(posiiton, game, playerSprite)
 
 }
 
-Platform.prototype = Object.create(Phaser.Sprite.prototype);
-Platform.constructor = Spike;
+Spike.prototype = Object.create(Phaser.Sprite.prototype);
+Spike.constructor = Spike;
 
 Spike.prototype.update = function()
 {
@@ -23,7 +23,7 @@ Spike.prototype.update = function()
 
 Spike.prototype.collisionDetection = function()
 {
-    this.game.physics.arcade.collide(this, _playerSprite, this.collision, null, this.game);
+   //this.game.physics.arcade.collide(this, _playerSprite, this.collision, null, this.game);
 
 }
 

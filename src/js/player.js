@@ -1,6 +1,7 @@
 'use strict';
 
-function Player(avatar){
+function Player(avatar)
+{
     this.avatar = avatar;
     this.posX = 0;
     this.posY = 0;

@@ -24,5 +24,6 @@ window.onload = function () {
   game.state.add('menu', MenuScene);
   game.state.add('play', PlayScene);
 
+
   game.state.start('boot');
 };
