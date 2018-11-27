@@ -7,7 +7,7 @@ var RandomGenerator = require('./randomgenerator.js');
 
 var p = new Points([20,20]);
 var player = new Player('ball');
-var rng = new RandomGenerator(this.game, 3, 800, 600);
+var rng;
 
 
  var PlayScene = {
@@ -32,12 +32,13 @@ var rng = new RandomGenerator(this.game, 3, 800, 600);
     var plat = new Platform([400,300], this.game);
     this.game.world.addChild(plat);
 
-    
-
-
     p.game = this.game;
     p.createText();
     p.resetPoints();
+
+    rng = new RandomGenerator(this.game, 3, 800, 600);
+
+    rng.spawnPlatform();
 
   },
     

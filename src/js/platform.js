@@ -46,7 +46,7 @@ Platform.prototype.setSpikePoints = function()
 
 Platform.prototype.update  = function() //update
 { 
-    this.y--;
+    
 }
 
 

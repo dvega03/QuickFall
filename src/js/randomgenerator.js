@@ -9,7 +9,7 @@ function RandomGenerator (game, columns, width, heigth)
     this._game = game;
 
     this._columns = columns;
-    this.spawnPoints = [];
+    this.spawnPoints = new Array(this._columns).fill(null);
 
     this.lastPlatform = null;
 
@@ -24,31 +24,31 @@ function RandomGenerator (game, columns, width, heigth)
 
     var boolSpawn = false;
 
-    this.platforms = game.add.group();
-
-    return this;
-
+    this.platforms = this._game.add.group();
 }
 
 RandomGenerator.prototype.spawnPlatform  = function()
 {
-    for(var i = 0; i < _game.rnd.integerInRange(0,3); i++)//# of platforms
+    for(var i = 0; i < this._game.rnd.integerInRange(0,3); i++)//# of platforms
     {
-        var rnd = _game.rnd.integerInRange(1,3);
-        var newPlatform = new Platform([this.spawnPoints[rnd].x, this.spawnPoints[rnd].y],_game);
+        var rnd = this._game.rnd.integerInRange(1,3);
+        var newPlatform = new Platform([this.spawnPoints[rnd].x, this.spawnPoints[rnd].y],this._game);
         this.platforms.add(newPlatform);
 
         rnd = this._game.rnd.integerInRange(0,4);
 
         for(var j = 0; j < rnd; j++)
-        {
-            var newSpike = new Spike([newPlatform.spikePoints[rnd].x, newPlatform.spikePoints[rnd].y], _game);
+        { 
+            var newSpike;
+            newSpike = new Spike([newPlatform.spikePoints[rnd].x, newPlatform.spikePoints[rnd].y], this._game);
             newPlatform.addChild(newSpike);
         }
 
         this.lastPlatform = newPlatform;
     }
-    this.platforms.enableBody();
+
+    this.platforms.enableBody = true;
+
 }
 
 RandomGenerator.prototype.checkSpawn = function()
@@ -58,9 +58,10 @@ RandomGenerator.prototype.checkSpawn = function()
     else boolSpawn = false;
 }
 
+
 RandomGenerator.prototype.update = function()
 {
-    
+    this.platforms.y--;
     this.spawnPlatform();
 }
 
