@@ -1,7 +1,10 @@
 'use strict'
 var Platform = require('./platform.js');
 var Spike = require('./spike.js');
+var Pool = require('./pool.js');
 
+var poolPlat;
+var poolSpike;
 
 function RandomGenerator (game, columns, width, heigth)
 {
@@ -24,36 +27,48 @@ function RandomGenerator (game, columns, width, heigth)
 
     var boolSpawn = false;
 
-    this.platforms = this._game.add.group();
+    var platformArr = [];
+    var spikesArr = [];
+
+    for (var i = 0; i < 100; i++)
+    {
+        platformArr.push(new Platform([0,0], game));
+        spikesArr.push(new Spike([0,0], game));
+    }
+
+    poolPlat = new Pool(game, platformArr);
+    poolSpike = new Pool(game, spikesArr);
+
+
 }
 
 RandomGenerator.prototype.spawnPlatform  = function()
 {
+    var newPlatform;
+
     for(var i = 0; i < this._game.rnd.integerInRange(0,3); i++)//# of platforms
     {
-        var rnd = this._game.rnd.integerInRange(1,3);
-        var newPlatform = new Platform([this.spawnPoints[rnd].x, this.spawnPoints[rnd].y],this._game);
-        this.platforms.add(newPlatform);
+        var rnd = this._game.rnd.integerInRange(1, 3);
+
+        //newPlatform = poolPlat.spawn(this.spawnPoints[rnd].x, this.spawnPoints[rnd].y);
+        newPlatform = poolPlat.spawn(100, 500);
 
         rnd = this._game.rnd.integerInRange(0,4);
 
         for(var j = 0; j < rnd; j++)
-        { 
-            var newSpike;
-            newSpike = new Spike([newPlatform.spikePoints[rnd].x, newPlatform.spikePoints[rnd].y], this._game);
-            newPlatform.addChild(newSpike);
+        {
+           //poolSpike.spawn(newPlatform.spikePoints[rnd].x, newPlatform.spikePoints[rnd].y);
+            poolSpike.spawn(100, 200);
         }
 
         this.lastPlatform = newPlatform;
     }
 
-    this.platforms.enableBody = true;
 
 }
 
 RandomGenerator.prototype.checkSpawn = function()
 {
-
     if(this.lastPlatform.y <= gap + instiantiatePoint) boolSpawn = true;
     else boolSpawn = false;
 }
@@ -61,7 +76,6 @@ RandomGenerator.prototype.checkSpawn = function()
 
 RandomGenerator.prototype.update = function()
 {
-    this.platforms.y--;
     this.spawnPlatform();
 }
 

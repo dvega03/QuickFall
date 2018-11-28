@@ -36,14 +36,13 @@ var rng;
     p.createText();
     p.resetPoints();
 
-    rng = new RandomGenerator(this.game, 3, 800, 600);
-
-    rng.spawnPlatform();
-
+      rng = new RandomGenerator(this.game, 3, 800, 600);
+      rng.spawnPlatform();
   },
     
   update:function(){
 
+    
     //Setting player movement
     player.controls();
     p.update();
