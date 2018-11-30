@@ -37,12 +37,11 @@ var rng;
     p.resetPoints();
 
       rng = new RandomGenerator(this.game, 3, 800, 600);
-      rng.spawnPlatform();
   },
     
   update:function(){
 
-    
+    rng.update();
     //Setting player movement
     player.controls();
     p.update();

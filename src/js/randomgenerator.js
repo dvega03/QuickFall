@@ -50,15 +50,16 @@ RandomGenerator.prototype.spawnPlatform  = function()
     {
         var rnd = this._game.rnd.integerInRange(1, 3);
 
-        //newPlatform = poolPlat.spawn(this.spawnPoints[rnd].x, this.spawnPoints[rnd].y);
-        newPlatform = poolPlat.spawn(100, 500);
+        newPlatform = poolPlat.spawn(this.spawnPoints[rnd].x, this.spawnPoints[rnd].y);
+        //newPlatform = poolPlat.spawn(rnd *100, rnd * 100);
+        console.log("Se ha instanciado con x :" + rnd*100 + "y la y :" + rnd*100);
 
         rnd = this._game.rnd.integerInRange(0,4);
 
         for(var j = 0; j < rnd; j++)
         {
            //poolSpike.spawn(newPlatform.spikePoints[rnd].x, newPlatform.spikePoints[rnd].y);
-            poolSpike.spawn(100, 200);
+            poolSpike.spawn(rnd, rnd);
         }
 
         this.lastPlatform = newPlatform;

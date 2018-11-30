@@ -12,7 +12,7 @@ Pool.prototype.spawn = function (x,y)
     var entity = this._group.getFirstExists(false);
     if (entity)
     {
-        entity.reset(0,0);
+        entity.reset(x,y);
     }
 
     return entity;
