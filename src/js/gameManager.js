@@ -3,7 +3,6 @@
 var BootScene = require('./bootScene.js');
 var PlayScene = require('./playScene.js');
 var MenuScene = require('./menuScene.js');
-var Player = require('./player.js');
 
 function GameManager(game){
     this.game = game;
@@ -19,8 +18,8 @@ GameManager.prototype.loadState = function(nameState){
     this.game.state.start(nameState);
 }
 
-GameManager.prototype.selectedAvatar = function(){
-    var playerAvatar;
+GameManager.prototype.selectedAvatar = function(avatar){
+    this.playerAvatar = avatar;
 }
 
 window.onload = function () {
