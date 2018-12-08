@@ -36,12 +36,11 @@ var rng;
     p.createText();
     p.resetPoints();
 
-      rng = new RandomGenerator(this.game, 3, 800, 600);
+      rng = new RandomGenerator(this.game, 3, 6, 800, 600);
   },
     
   update:function(){
 
-    rng.update();
     //Setting player movement
     player.controls();
     p.update();
@@ -50,7 +49,8 @@ var rng;
 
   render:function(){
 
-    this.game.debug.body(player.sprite);
+      this.game.debug.body(player.sprite);
+      rng.render();
   }
 }
 

@@ -6,19 +6,33 @@ var Pool = require('./pool.js');
 var poolPlat;
 var poolSpike;
 
-function RandomGenerator (game, columns, width, heigth)
+function RandomGenerator (game, columns, numberSpikes, width, heigth)
 {
+
+    var Point = function point(x,y)
+    {
+        this._x = x;
+        this._y = y;
+
+        return this;
+    }
 
     this._game = game;
 
     this._columns = columns;
-    this.spawnPoints = new Array(this._columns).fill(null);
+    this._numberSpikes = numberSpikes;
+    this._spawnPoints = new Array(this._columns).fill(new Point(0, 0));
+    console.log(this._spawnPoints[0]._x);
+
 
     this.lastPlatform = null;
 
-    for(var i = 1; i <= 3; i++)
+    for (var i = 0; i < this._columns; i++)
     {
-        this.spawnPoints[i - 1] = {x: width/columns*i, y: heigth + 100};
+        console.log(i);
+        this._spawnPoints[i]._x = width / ((this._columns + 1) * (i + 1));
+        this._spawnPoints[i]._y = heigth + 100;
+        
     }
 
     var destroyPoint;//A que altura se destruyen las plataformas
@@ -39,27 +53,50 @@ function RandomGenerator (game, columns, width, heigth)
     poolPlat = new Pool(game, platformArr);
     poolSpike = new Pool(game, spikesArr);
 
+    this._timer = this._game.time.create(false);
+
+    this.start();
 
 }
 
+RandomGenerator.prototype.start = function ()
+{
+    this._timer.loop(1000, this.spawnPlatform, this._game);
+    this._timer.start();
+}
+
+
 RandomGenerator.prototype.spawnPlatform  = function()
 {
+    var rnd;
     var newPlatform;
+    var maxSpikes;
+    var maxPlat;
 
-    for(var i = 0; i < this._game.rnd.integerInRange(0,3); i++)//# of platforms
+    maxPlat = game.rnd.integerInRange(0, 3); //Option 1
+    //maxPlat = this._game.rnd.integerInRange(0, 3); //Option 2
+
+    for (var i = 0; i < maxPlat; i++)//# of platforms
     {
-        var rnd = this._game.rnd.integerInRange(1, 3);
+        rnd = game.rnd.integerInRange(0, this._columns - 1); //Option 1
+        //rnd = this._game.rnd.integerInRange(0, this._columns - 1); //Option 2
 
-        newPlatform = poolPlat.spawn(this.spawnPoints[rnd].x, this.spawnPoints[rnd].y);
+        newPlatform = poolPlat.spawn(this._spawnPoints[rnd]._x, this._spawnPoints[rnd]._y);
         //newPlatform = poolPlat.spawn(rnd *100, rnd * 100);
-        console.log("Se ha instanciado con x :" + rnd*100 + "y la y :" + rnd*100);
+        console.log("Se ha instanciado con x :" + this._spawnPoints[rnd]._x + "y la y :" + this._spawnPoints[rnd]._y);
 
-        rnd = this._game.rnd.integerInRange(0,4);
+        maxSpikes = game.rnd.integerInRange(0, 4); //Option 1
+        //maxSpikes = this._game.rnd.integerInRange(0, 4); //Option 2
 
-        for(var j = 0; j < rnd; j++)
+        for (var j = 0; j < maxSpikes; j++)
         {
-           //poolSpike.spawn(newPlatform.spikePoints[rnd].x, newPlatform.spikePoints[rnd].y);
-            poolSpike.spawn(rnd, rnd);
+            var spikePos;
+
+            rnd = game.rnd.integerInRange(0, 5); //Option 1
+            //rnd = this._game.rnd.integerInRange(0, 5);//Option 2
+
+            spikePos = this.setSpikeSpawn(newPlatform, this._game.rnd.integerInRange(0, this._numberSpikes - 1));
+            poolSpike.spawn(spikePos.x, spikePos.y);
         }
 
         this.lastPlatform = newPlatform;
@@ -74,10 +111,37 @@ RandomGenerator.prototype.checkSpawn = function()
     else boolSpawn = false;
 }
 
-
-RandomGenerator.prototype.update = function()
+RandomGenerator.prototype.setSpikeSpawn = function (platform,position)
 {
-    this.spawnPlatform();
+
+    var x, y;
+
+    switch (position)
+    {
+        case 0:
+        case 1:
+        case 2:
+        case 3:
+            x = platform.x - (platform.width / 2) + (platform.width / (this._numberSpikes - 1)) * (position + 1);
+            y = platform.y - platform.heigth / 2;
+            break;
+        case 5:
+            x = platform.x - platform.width / 2;
+            y = platform.y;
+            break;
+        case 6:
+            x = platform.x + platform.width / 2;
+            y = platform.y;
+            break;
+    }
+
+
+    return [x, y];
+}
+
+RandomGenerator.prototype.render = function ()
+{
+    this._game.debug.text('Time until event: ' + this._timer.duration.toFixed(0), 32, 32);
 }
 
 RandomGenerator.prototype.destroyPlatform = function()
