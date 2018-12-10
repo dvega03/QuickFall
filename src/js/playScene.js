@@ -19,6 +19,7 @@ var plat;
     p.resetPoints();
     //Setting Player properties
     player = new Player(this.game);
+    player.setPlayer();
     player.create();
     this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
@@ -45,7 +46,7 @@ var plat;
   },
 
   render:function(){
-    this.game.debug.body(player.player.sprite);
+    //this.game.debug.body(player.player.sprite);
     this.game.debug.body(plat);
   }
 }

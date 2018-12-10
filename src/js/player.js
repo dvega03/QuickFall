@@ -6,7 +6,20 @@ var Saw = require('./saw.js');
 
 function Player (game){
     this.game = game;
-    this.player = new Saw(this.game);
+    this.avatar = [Ball,Saw];
+    this.player = null;
+}
+
+Player.prototype.setPlayer = function(){
+    var found = false;
+    var i = this.game.gameManager.playerAvatar;
+    while(!found){
+        if(i < this.avatar.length){
+            this.player = this.game.gameManager.selectedAvatar(this.avatar[i]);
+            found = true;
+        }
+        else{console.log("Invalid Class, nameClass not found"); found = true;}
+    }
 }
 
 Player.prototype.create = function(){
