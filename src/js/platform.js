@@ -11,7 +11,7 @@ function Platform(position, game)
     Phaser.Sprite.call(this, game, x, y, 'platform');
 
     this.anchor.setTo(0.5,0.5);
-    this.scale.setTo(0.5, 0.5);
+    this.scale.setTo(0.3, 0.3);
     this.speed = 1;
 
 }
@@ -22,7 +22,7 @@ Platform.constructor = Platform;
 
 Platform.prototype.update  = function() //update
 {
-    this.y = this.y * this.speed;
+    this.y--;
 }
 
 
