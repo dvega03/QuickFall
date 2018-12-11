@@ -5,6 +5,7 @@ var Pool = require('./pool.js');
 
 var poolPlat;
 var poolSpike;
+var self;
 
 function RandomGenerator (game, columns, numberSpikes, width, heigth)
 {
@@ -17,13 +18,14 @@ function RandomGenerator (game, columns, numberSpikes, width, heigth)
         return this;
     }
 
+    this._game = null;
     this._game = game;
 
+    this._columns = null;
     this._columns = columns;
+    console.log("Columns es " + this._columns);
     this._numberSpikes = numberSpikes;
     this._spawnPoints = new Array(this._columns).fill(new Point(0, 0));
-    console.log(this._spawnPoints[0]._x);
-
 
     this.lastPlatform = null;
 
@@ -54,9 +56,15 @@ function RandomGenerator (game, columns, numberSpikes, width, heigth)
     poolSpike = new Pool(game, spikesArr);
 
     this._timer = this._game.time.create(false);
-
+    self = this;
     this.start();
 
+}
+
+var numberInRange = function(min, max)
+{
+    var int = Math.floor(Math.random()*(max-min+1)+min); 
+    return int;
 }
 
 RandomGenerator.prototype.start = function ()
@@ -65,7 +73,6 @@ RandomGenerator.prototype.start = function ()
     this._timer.start();
 }
 
-
 RandomGenerator.prototype.spawnPlatform  = function()
 {
     var rnd;
@@ -73,28 +80,26 @@ RandomGenerator.prototype.spawnPlatform  = function()
     var maxSpikes;
     var maxPlat;
 
-    maxPlat = game.rnd.integerInRange(0, 3); //Option 1
-    //maxPlat = this._game.rnd.integerInRange(0, 3); //Option 2
-
+    maxPlat = numberInRange(0,3);
+    console.log(maxPlat);
     for (var i = 0; i < maxPlat; i++)//# of platforms
     {
-        rnd = game.rnd.integerInRange(0, this._columns - 1); //Option 1
-        //rnd = this._game.rnd.integerInRange(0, this._columns - 1); //Option 2
-
+        console.log("columns es s " + self._columns);
+        rnd = numberInRange(0, self._columns - 1);
+        console.log("rnd es " + rnd);
+        
         newPlatform = poolPlat.spawn(this._spawnPoints[rnd]._x, this._spawnPoints[rnd]._y);
         //newPlatform = poolPlat.spawn(rnd *100, rnd * 100);
         console.log("Se ha instanciado con x :" + this._spawnPoints[rnd]._x + "y la y :" + this._spawnPoints[rnd]._y);
 
-        maxSpikes = game.rnd.integerInRange(0, 4); //Option 1
-        //maxSpikes = this._game.rnd.integerInRange(0, 4); //Option 2
-
+        maxSpikes = numberInRange(0, 4); 
+        
         for (var j = 0; j < maxSpikes; j++)
         {
             var spikePos;
 
-            rnd = game.rnd.integerInRange(0, 5); //Option 1
-            //rnd = this._game.rnd.integerInRange(0, 5);//Option 2
-
+            rnd = numberInRange(0, 5); 
+            
             spikePos = this.setSpikeSpawn(newPlatform, this._game.rnd.integerInRange(0, this._numberSpikes - 1));
             poolSpike.spawn(spikePos.x, spikePos.y);
         }
