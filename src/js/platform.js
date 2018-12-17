@@ -19,13 +19,16 @@ function Platform(position, game)
 Platform.prototype = Object.create(Phaser.Sprite.prototype);
 Platform.constructor = Platform;
 
-
 Platform.prototype.update  = function() //update
 {
-    this.y--;
+    if (this.alive)
+    {
+        this.y--;
+        if (this.y < -50) {
+            this.kill();
+            console.log("He sido destruido" + this.y);
+        }
+    }
 }
-
-
-
 
 module.exports = Platform;

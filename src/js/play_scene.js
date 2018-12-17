@@ -41,6 +41,7 @@ var rng;
     
   update:function(){
 
+      rng.update();
     //Setting player movement
     player.controls();
     p.update();
@@ -50,7 +51,6 @@ var rng;
   render:function(){
 
       this.game.debug.body(player.sprite);
-      rng.render();
   }
 }
 

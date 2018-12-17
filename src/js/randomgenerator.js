@@ -22,34 +22,32 @@ function RandomGenerator (game, columns, numberSpikes, width, heigth)
     this._game = null;
     this._game = game;
 
+    this._timePerDelay = 5000;
     this._columns = null;
     this._columns = columns;
     this._numberSpikes = numberSpikes;
-    this._spawnPoints = new Array(this._columns);
+    this._spawnPoints = [];
 
-    for (var i = 0; i < this._spawnPoints.length; i++)
+    for (var i = 0; i < columns; i++)
     {
-        this._spawnPoints.push({x:0, y :0});
+        this._spawnPoints.push({ x: 0, y: 0 });
     }
+
+    console.log(this._spawnPoints);
 
     this.lastPlatform = null;
 
-    //var arrPos = this._spawnPoints;
-
-    //for (var i = 0; i < this._columns; i++)
-    //{
-    //    arrPos[i].x = (width / (columns + 1)) * (i + 1);
-    //    arrPos[i].y = heigth + 100;
-        
-    //}
-    //arrPos[0].x = 200;
-    //console.log(arrPos);
-
+    for (var i = 0; i < this._columns; i++)
+    {
+        this._spawnPoints[i].x = (width / (columns + 1)) * (i + 1);
+        this._spawnPoints[i].y = heigth + 100;
+    }
+  
     var destroyPoint;//A que altura se destruyen las plataformas
-    var instiantiatePoint;//A que altura se crean las plataformas
-    var gap;
+    this.instiantiatePoint = heigth + 100;//A que altura se crean las plataformas
+    this.gap = 200;
 
-    var boolSpawn = false;
+    
 
     var platformArr = [];
     var spikesArr = [];
@@ -63,23 +61,13 @@ function RandomGenerator (game, columns, numberSpikes, width, heigth)
     poolPlat = new Pool(game, platformArr);
     poolSpike = new Pool(game, spikesArr);
 
-    this._timer = this._game.time.create(false);
-
     self = this;
-    this.start();
-
 }
 
 var numberInRange = function(min, max)
 {
     var int = Math.floor(Math.random()*(max-min+1)+min); 
     return int;
-}
-
-RandomGenerator.prototype.start = function ()
-{
-    this._timer.loop(1000, this.spawnPlatform, this._game);
-    this._timer.start();
 }
 
 RandomGenerator.prototype.spawnPlatform  = function()
@@ -90,20 +78,12 @@ RandomGenerator.prototype.spawnPlatform  = function()
     var maxPlat;
 
     maxPlat = numberInRange(0,3);
-    console.log(maxPlat);
     for (var i = 0; i < maxPlat; i++)//# of platforms
     {
-        
-        console.log("columns es s " + self._columns);
         rnd = numberInRange(0, self._columns - 1);
-        console.log("rnd es " + rnd);
-        for (var i = 0; i < self._spawnPoints.length; i++) {
-            console.log("Posicion " + i + " || x : " + self._spawnPoints[i]._x + " y : " + self._spawnPoints[i]._y);
-        }
-
-        newPlatform = poolPlat.spawn(self._spawnPoints[rnd]._x, self._spawnPoints[rnd]._y);
+        newPlatform = poolPlat.spawn(self._spawnPoints[rnd].x, self._spawnPoints[rnd].y);
         //newPlatform = poolPlat.spawn(rnd *100, rnd * 100);
-        console.log("Se ha instanciado con x :" + self._spawnPoints[rnd]._x + "y la y :" + self._spawnPoints[rnd]._y);
+      
 
         //maxSpikes = numberInRange(0, 4); 
         
@@ -125,13 +105,19 @@ RandomGenerator.prototype.spawnPlatform  = function()
 
 RandomGenerator.prototype.checkSpawn = function()
 {
-    if (self.lastPlatform.y <= gap + instiantiatePoint) boolSpawn = true;
-    else boolSpawn = false;
+    
+    if (self.lastPlatform == null) {
+        return true;
+    } else
+    {
+        if (self.instiantiatePoint - self.lastPlatform.y >= self.gap) return true;
+        else return false;
+    }
+   
 }
 
 RandomGenerator.prototype.setSpikeSpawn = function (platform,position)
 {
-
     var x, y;
 
     switch (position)
@@ -157,14 +143,14 @@ RandomGenerator.prototype.setSpikeSpawn = function (platform,position)
     return [x, y];
 }
 
-RandomGenerator.prototype.render = function ()
+RandomGenerator.prototype.update = function ()
 {
-    this._game.debug.text('Time until event: ' + this._timer.duration.toFixed(0), 32, 32);
+    if (self.checkSpawn())
+    {
+        self.spawnPlatform();
+    }
 }
 
-RandomGenerator.prototype.destroyPlatform = function()
-{
 
-}
 
 module.exports = RandomGenerator;
