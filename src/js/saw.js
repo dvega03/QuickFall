@@ -22,6 +22,7 @@ Saw.prototype.getPhysics = function(inst){
     this.sprite.body.setSize(500,500,250,250);
     this.sprite.body.onCollide = new Phaser.Signal();
     this.sprite.body.onCollide.add(this.collision,inst);
+    //this.sprite.body.onCollide.add(this.particles,inst);
 }
 
 Saw.prototype.controls = function(){
@@ -30,6 +31,19 @@ Saw.prototype.controls = function(){
         this.sprite.body.velocity.x = -300; }
     if (!this.power && this.game.input.keyboard.addKey(Phaser.Keyboard.D).isDown){ 
         this.sprite.body.velocity.x = +300; }
+}
+
+Saw.prototype.particles= function(sprite){
+    var part = this.game.add.sprite(sprite.x,sprite.y,'sawSmoke');
+    part.anchor.setTo(0.7,0.5);
+    part.scale.setTo(1);
+    part.visible = false;
+    this.anim = part.animations.add('drag');
+    this.anim.play('drag',16,true);
+    if(sprite.body.velocity.x !== 0){
+        part.visible = true;
+        if(sprite.body.velocity.x<0){part.scale.x *= -1;}
+    }
 }
 
 Saw.prototype.collision = function(sprite){

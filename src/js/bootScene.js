@@ -11,9 +11,18 @@ var BootScene = {
     this.game.load.image('TlLayer3','Assets/Title/Layer3.png');
     this.game.load.image('TlLayer4','Assets/Title/Layer4.png');
     this.game.load.image('TlLayer5','Assets/Title/Layer5.png');
+    this.game.load.image('TlLayer6','Assets/Title/Layer6.png');
+    this.game.load.image('TlLayer7','Assets/Title/Layer7.png');
+    this.game.load.spritesheet('ball','Assets/Sprites/Ball_Spritesheet.png',1000,1000);
+    this.game.load.spritesheet('saw','Assets/Sprites/Saw.png',1000,1000);
+    this.game.load.spritesheet('ballSmoke','Assets/Sprites/Ball_Smoke.png',100,100);
+    this.game.load.spritesheet('sawSmoke','Assets/Sprites/Saw_Smoke.png',100,100);
+    this.game.load.image('platform','Assets/Sprites/Platform.png');
     this.game.load.spritesheet('menuButton','Assets/Title/MenuButtons.png',512,288);
     this.game.load.spritesheet('pointer','Assets/Sprites/Pointer.png',512,288);
-    this.game.load.spritesheet('avatarPointer','Assets/Sprites/AvatarPointer.png',512,288);
+    this.game.load.spritesheet('avatarPointer','Assets/Sprites/AvatarPointer.png',300,300);
+    this.game.load.spritesheet('boosters','Assets/Sprites/Boosters.png',300,300);
+    this.game.load.spritesheet('meteor','Assets/Sprites/Meteor.png',100,100);
   },
 
   create: function () {

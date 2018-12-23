@@ -1,4 +1,4 @@
-    'use strict';
+'use strict';
 
 function Platform(position, game)
 {
@@ -50,10 +50,6 @@ Platform.prototype.setSpikePoints = function()
     this.spikePoints[5].y = this.y;
 }
 
-Platform.prototype.update  = function() //update
-{ 
-    
-}
 
 
 

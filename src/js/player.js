@@ -23,7 +23,7 @@ Player.prototype.setPlayer = function(){
 }
 
 Player.prototype.create = function(){
-    this.player.getSprite([this.game.world.centerX,this.game.world.centerY]);
+    this.player.getSprite([this.game.world.centerX,-100]);
     this.player.getPhysics(this);
 }
 
