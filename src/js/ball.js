@@ -18,11 +18,11 @@ Ball.prototype.getSprite = function(pos){
 Ball.prototype.getPhysics = function(inst){
     this.game.physics.enable(this.sprite, Phaser.Physics.ARCADE);
     //this.sprite.body.collideWorldBounds = true;
-    //this.sprite.body.gravity.set(0,1600);
+    this.sprite.body.gravity.set(0,1600);
     this.sprite.body.setSize(500,500,250,250);
     this.sprite.body.onCollide = new Phaser.Signal();
     this.sprite.body.onCollide.add(this.collision,inst);
-    //this.sprite.body.onCollide.add(this.particles,inst)
+    this.sprite.body.onCollide.add(this.particles,inst)
 }
 
 Ball.prototype.controls = function(){
@@ -31,7 +31,6 @@ Ball.prototype.controls = function(){
         this.sprite.body.velocity.x = -300; }
     if (this.game.input.keyboard.addKey(Phaser.Keyboard.D).isDown){ 
         this.sprite.body.velocity.x = +300; }
-        this.sprite.body.velocity.y = +600;
 }
 
 Ball.prototype.particles = function(sprite){

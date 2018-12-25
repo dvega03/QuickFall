@@ -12,7 +12,7 @@ function Platform(position, game)
     Phaser.Sprite.call(this, game, x, y, 'platform');
 
     this.anchor.setTo(0.5,0.5);
-    this.scale.setTo(0.3, 0.3);
+    this.scale.setTo(1,0.25);
 
     
     game.physics.startSystem(Phaser.Physics.ARCADE);

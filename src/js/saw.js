@@ -22,7 +22,7 @@ Saw.prototype.getPhysics = function(inst){
     this.sprite.body.setSize(500,500,250,250);
     this.sprite.body.onCollide = new Phaser.Signal();
     this.sprite.body.onCollide.add(this.collision,inst);
-    //this.sprite.body.onCollide.add(this.particles,inst);
+    this.sprite.body.onCollide.add(this.particles,inst);
 }
 
 Saw.prototype.controls = function(){
@@ -35,7 +35,7 @@ Saw.prototype.controls = function(){
 
 Saw.prototype.particles= function(sprite){
     var part = this.game.add.sprite(sprite.x,sprite.y,'sawSmoke');
-    part.anchor.setTo(0.7,0.5);
+    part.anchor.setTo(0.5,0.55);
     part.scale.setTo(1);
     part.visible = false;
     this.anim = part.animations.add('drag');

@@ -7,21 +7,11 @@ var Boosters = require('./boosters.js');
 
 var p = new Points([20,20]);
 var player;
-var plat1;
-var plat2;
-var plat3;
-var plat4;
-var plat5;
-var plat6;
-var plat7;
-var plat8;
-var plat9;
-var plat10;
-var meteor;
+var plat;
 
  var PlayScene = {
   create: function () {
-    this.game.stage.backgroundColor = "#000000";
+    this.game.stage.backgroundColor = "#800020";
     this.layer1 = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'BgLayer1');
     this.layer2 = this.game.add.tileSprite(0, 0, this.game.width, this.game.height, 'BgLayer2');
     //Points
@@ -32,6 +22,8 @@ var meteor;
     player = new Player(this.game);
     player.setPlayer();
     player.create();
+    plat = new Platform([this.game.world.centerX,700],this.game);
+    this.game.world.addChild(plat);
     p.game = this.game;
     //p.createText();
     //p.resetPoints();
@@ -45,6 +37,7 @@ var meteor;
     player.update();
     //p.update();
     //p.updateText();
+    this.game.physics.arcade.collide(plat,player.player.sprite);
     this.game.physics.arcade.overlap(this.boosters.booster,player.player.sprite);
     this.layer1.tilePosition.x -=2;
     this.layer1.tilePosition.y +=2;
@@ -61,6 +54,7 @@ var meteor;
 
   render:function(){
     if(this.boosters.booster !== null)this.game.debug.body(this.boosters.booster);
+    this.game.debug.body(plat);
   }
 }
 
